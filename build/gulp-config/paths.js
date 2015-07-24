@@ -1,7 +1,7 @@
 //NOTE: folders are relative to project root folder
 
-var srcRoot = 'application';
-var distRoot = 'public';
+var srcRoot = 'frontend';
+var distRoot = 'static';
 
 var paths = {
 
@@ -22,9 +22,9 @@ var paths = {
         usemin: distRoot  //path to views to be processed by usemin/htmlrefs
     },
 
-    js: 'javascripts',
-    sass: 'stylesheets',
-    css: 'stylesheets',
+    js: 'js',
+    sass: 'scss',
+    css: 'css',
     images: 'images',
     fonts: 'fonts',
     audio: 'audio',

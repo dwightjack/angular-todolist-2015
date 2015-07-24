@@ -52,9 +52,9 @@ module.exports = function (gulp, $, options) {
     // Watch Files For Changes & Reload
     gulp.task('serve', ['default'], function () {
 
-        browserSyncConfig.middleware = require('./lib/middlewares')(options);
-
         options.isWatching = true;
+
+        browserSyncConfig.middleware = require('./lib/middlewares')(options);
 
         browserSync.init(null, browserSyncConfig, function () {
 
@@ -66,18 +66,16 @@ module.exports = function (gulp, $, options) {
             gulp.watch([assetsPath('src.fonts', '**/*.{eot,svg,ttf,woff,woff2}')], ['fonts', reload]);
             gulp.watch([assetsPath('src.video', '{,*/}*.*'), assetsPath('src.audio', '{,*/}*.*')], ['media', reload]);
             gulp.watch([
-                    assetsPath('src.js') +  '/**/*.js',
-                    '!' + assetsPath('src.js') +  '/**/*.{spec,conf}.js'
-                ],
-                ['scripts', reload]
-            );
-            gulp.watch([
                     paths.src.views + '/{,*/}' + options.viewmatch,
                     paths.src.documents + '/*.md',
                     paths.src.fixtures + '/*.json'
                 ],
                 ['views', reload]
             );
+
+            //webpack watch
+            var scriptTask = require('./scripts')(gulp, $, options);
+            scriptTask().pipe(browserSync.stream({match: '**/*.js'}));
 
         });
 

@@ -72,6 +72,7 @@ module.exports = function (gulp, $, options) {
 
     gulp.task('views', function () {
 
+
         return gulp.src([viewPath + '/{,*/}' + options.viewmatch, '!' + viewPath + '/{,*/}_*.*'])
             .pipe(map(function(code, filename) {
                 return ejs.render(code.toString(), _.clone(data), {filename: filename});
