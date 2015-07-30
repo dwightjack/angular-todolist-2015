@@ -48,50 +48,19 @@
             </header>
 
             <div class="panel-body">
-
-                <form name="form.todoForm" class="row" ng-controller="FormController as form" ng-submit="form.submitForm()" novalidate="true">
-
-
-                    <fieldset class="col-xs-offset-1 col-xs-11">
-
-                        <div class="form-group">
-                            <label for="title" class="sr-only">Titolo</label>
-                            <input type="text" class="form-control" autocomplete="off" id="title" name="title" ng-model="form.todo.title" placeholder="Titolo nuovo task (obbligatorio)" required="true" />
-                        </div>
-
-                        <button class="btn btn-primary" type="submit" ng-disabled="form.todoForm.$invalid || form.isSubmitting"><small class="glyphicon glyphicon-floppy-disk"></small> Salva</button>
-                    </fieldset>
-                </form>
+                <div my-form on-submit="main.addTodo(data, cb)"></div>
             </div>
 
             <div class="list-group" id="todolist-items" ng-controller="ListController as list">
                 <form name="todoListForm">
-
-                    <article class="list-group-item" ng-repeat="todo in list.todos" ng-class="{'todo-completed': todo.completed}">
-                        <div class="action-bar">
-                            <a href="" class="glyphicon glyphicon-trash" title="Cancella" ng-click="list.remove(todo)"><span class="sr-only">Cancella</span></a>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-1">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="" name="completed" id="completed" ng-checked="todo.completed" ng-click="list.toggleCompleted(todo)" />
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-11 todo-item">
-                                <h1 class="list-group-item-heading h4" ng-click="list.toggleCompleted(todo)">{{todo.title}}</h1>
-                            </div>
-                        </div>
-                    </article>
-
+                    <article ng-repeat="todo in list.todos" my-todo my-todo-item="todo" on-update="list.update(id, data)" on-remove="list.remove(id)"></article>
                 </form>
             </div> <!-- /#todolist-items -->
 
 
             <footer class="panel-footer">
                 <p class="small">Totali: <strong>{{main.getTotal()}}</strong> Completati: <strong>{{main.getCompleted()}}</strong></p>
-                <div my-progress="main.getPercentage()">{{main.getPercentage() | number:2}}%</div>
+                <div my-progress my-progress-perc="main.getPercentage()">{{main.getPercentage() | number:2}}%</div>
             </footer>
 
         </section> <!-- /#todolist -->

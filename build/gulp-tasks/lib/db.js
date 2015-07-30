@@ -31,7 +31,7 @@ app.get('/api/todos', function (req, res) {
 });
 
 app.post('/api/todos', function (req, res) {
-    var todo = Object.create(req.body);
+    var todo = req.body;
     todo.date = Date.now();
     todoDB.insert(req.body, responseCallback.bind(null, res));
     todoDB.persistence.compactDatafile();

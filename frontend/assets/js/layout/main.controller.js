@@ -1,6 +1,9 @@
+var noop = require('angular').noop;
+
 class MainController {
     constructor(todoService) {
         this.todoService = todoService;
+        todoService.load();
     }
 
     getTotal() {
@@ -12,7 +15,7 @@ class MainController {
     }
 
     getPercentage() {
-        var total = this.todoService.getAll().length;
+        var total = this.getTotal();
         if (total === 0) {
             return 0;
         } else {
@@ -20,7 +23,13 @@ class MainController {
         }
     }
 
+    addTodo(data, cb=noop) {
+        this.todoService.store(data, cb);
+    }
+
 }
+
+MainController.$inject = ['todoService'];
 
 
 module.exports = MainController;

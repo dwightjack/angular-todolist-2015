@@ -74,12 +74,49 @@ module.exports = function (gulp, $, options) {
             );
 
             //webpack watch
-            var scriptTask = require('./scripts')(gulp, $, options);
-            scriptTask().pipe(browserSync.stream({match: '**/*.js'}));
+            var compileTask = require('./scripts')(gulp, $, options);
+            var notifier = $.notify({message: 'Scripts Compiled'});
+
+
+            compileTask(function () {
+                notifier.write('completed');
+                reload();
+            });
+
+            if (options.bdd) {
+                var spawn = require('child_process').spawn;
+                var backgroundProcess = spawn('node', ['./node_modules/gulp/bin/gulp.js', 'test:unit:bdd'], { stdio: 'inherit', cwd: process.cwd(), env: process.env });
+
+                process.on('exit', function () {
+                    backgroundProcess.kill();
+                });
+
+                backgroundProcess.on('error', function (e) {
+                    console.log(e);
+                });
+            }
 
         });
 
 
+
+
     });
+
+    //just a static server
+    gulp.task('server', function (done) {
+
+        browserSync.init(null, {
+            logLevel: 'silent',
+            middleware: require('./lib/middlewares')(options),
+            notify: false,
+            open: false,
+            port: ports.connect,
+            server: {
+                baseDir: options.paths.dist.root
+            },
+            ui: false
+        }, done);
+    })
 };
 

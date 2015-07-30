@@ -236,6 +236,17 @@ body {
     cursor: pointer;
 }
 
+.list-group-item.todo-item {
+    padding-top: 0;
+    padding-bottom: 0;
+    overflow: hidden;
+
+    > .row {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+}
+
 
 #todolist-items {
     .checkbox {
@@ -244,10 +255,9 @@ body {
     }
 }
 
-
 .todo-completed {
 
-    opacity: 0.5;
+    opacity: 0.5 !important;
 
     .list-group-item-heading {
         text-decoration: line-through;

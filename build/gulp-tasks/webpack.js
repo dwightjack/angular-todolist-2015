@@ -57,7 +57,7 @@ module.exports = function (gulp, $, options) {
         });
     }
 
-    gulp.task('scripts', compilerTask);
+    gulp.task('webpack', compilerTask);
 
     return compilerTask;
 };

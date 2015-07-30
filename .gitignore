@@ -110,6 +110,7 @@ etc
 /lib
 assets.json
 public/*
+static/*
 public/.htaccess
 public/htaccess
 public/favicon.ico

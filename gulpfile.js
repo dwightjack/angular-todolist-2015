@@ -31,7 +31,7 @@ banners.vendors = "/*! <%= pkg.description %> v<%= pkg.version %> - <%= pkg.auth
 //load configuration from yaml files
 fs.readdirSync(optionsPath).filter(function (optFile) {
     //accept just js files
-    return path.extname(optFile) === '.js';
+    return path.extname(optFile) === '.js' && optFile.indexOf('.conf.') === -1;
 }).forEach(function (optFile) {
     var key = _.camelCase(path.basename(optFile, path.extname(optFile)));
 
@@ -47,10 +47,16 @@ fs.readdirSync(optionsPath).filter(function (optFile) {
 _.forOwn({
     production: false,
     command: null,
+    bdd: null,
     remotehost: null //be explicit!
 }, function (value, key) {
     options[key] = _.has(yargs.argv, key) ? yargs.argv[key] : value;
 });
+
+//force production env
+if (options.production) {
+    process.env.NODE_ENV = 'production';
+}
 
 options.pkg = pkg;
 options.banners = banners;
@@ -96,7 +102,6 @@ gulp.task('default', ['clean'], function (done) {
 });
 
 gulp.task('dev', ['default']);
-
 
 gulp.task('dist', function () {
     $.util.log($.util.colors.red('`dist` task has been removed. Please run `gulp --production`'));
