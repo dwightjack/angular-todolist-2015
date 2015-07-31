@@ -18,9 +18,8 @@ class MainController {
         var total = this.getTotal();
         if (total === 0) {
             return 0;
-        } else {
-            return this.getCompleted() * 100 / total;
         }
+        return this.getCompleted() * 100 / total;
     }
 
     addTodo(data, cb=noop) {

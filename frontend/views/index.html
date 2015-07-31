@@ -53,7 +53,7 @@
 
             <div class="list-group" id="todolist-items" ng-controller="ListController as list">
                 <form name="todoListForm">
-                    <article ng-repeat="todo in list.todos" my-todo my-todo-item="todo" on-update="list.update(id, data)" on-remove="list.remove(id)"></article>
+                    <article ng-repeat="todo in list.todos track by todo._id" my-todo my-todo-item="todo" on-update="list.update(id, data)" on-remove="list.remove(id)"></article>
                 </form>
             </div> <!-- /#todolist-items -->
 

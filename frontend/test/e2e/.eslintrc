@@ -1,0 +1,18 @@
+{
+    "extends": "../.eslintrc",
+
+    "env": {
+        "browser": true,
+        "node": true,
+        "jasmine": true
+    },
+
+    "globals": {
+        "angular": true,
+        "browser": true,
+        "element": true,
+        "by": true,
+        "$": true,
+        "$$": true
+    }
+}

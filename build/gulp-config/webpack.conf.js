@@ -15,6 +15,7 @@ module.exports = function (options) {
         entries[key] = './' + filename;
     });
 
+
     return {
         context: cwd,
         entry: entries,
@@ -24,6 +25,7 @@ module.exports = function (options) {
             filename: '[name].js'
         },
         optional: ['runtime'],
+        plugins: [],
         module: {
             loaders: [
                 {

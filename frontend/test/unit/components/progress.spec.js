@@ -16,7 +16,7 @@ describe('Progress directive tests', () => {
         $scope.$digest();
     });
 
-    it('should pass a percentage value to the isolated scope', function () {
+    it('should pass a percentage value to the isolated scope', () => {
 
         let isolateScope = compiledElement.isolateScope();
 
@@ -29,13 +29,13 @@ describe('Progress directive tests', () => {
 
     });
 
-    it('should replace containing element', function () {
+    it('should replace containing element', () => {
 
         expect(compiledElement[0].tagName).not.toBe('ARTICLE');
 
     });
 
-    it('should transclude text', function () {
+    it('should transclude text', () => {
 
         let text = compiledElement[0].querySelector('.progress-bar').innerText;
 
@@ -44,7 +44,7 @@ describe('Progress directive tests', () => {
     });
 
 
-    it('should generate a boostrap progress bar', function () {
+    it('should generate a boostrap progress bar', () => {
 
         var child = angular.element(compiledElement.find('div')[0]);
 

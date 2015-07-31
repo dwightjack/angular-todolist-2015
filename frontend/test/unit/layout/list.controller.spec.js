@@ -21,7 +21,7 @@ describe('ListController tests', () => {
 
         spyOn(todoService, 'update');
 
-        let data = {
+        const data = {
             title: 'test'
         };
 
@@ -39,7 +39,5 @@ describe('ListController tests', () => {
 
         expect(todoService.remove).toHaveBeenCalledWith(10);
     });
-
-
 
 });

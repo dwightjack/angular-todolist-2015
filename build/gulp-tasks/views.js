@@ -15,7 +15,11 @@ module.exports = function (gulp, $, options) {
     var data = {},
         paths = options.paths,
         viewPath = path.join(process.cwd(), paths.src.views),
-        fixturesPath = path.join(process.cwd(), options.paths.src.fixtures);
+        fixturesPath = path.join(process.cwd(), options.paths.src.fixtures),
+        styleFilter,
+        jsFilter,
+        userRefPipe,
+        assets;
 
 
     //build view data
@@ -30,11 +34,11 @@ module.exports = function (gulp, $, options) {
     data._ = _;
 
 
-    var assets = $.useref.assets({searchPath: [paths.dist.root, paths.tmp]});
-    var styleFilter = $.filter('**/*.min.css');
-    var jsFilter = $.filter('**/*.min.js');
+    assets = $.useref.assets({searchPath: [paths.dist.root, paths.tmp]});
+    styleFilter = $.filter('**/*.min.css');
+    jsFilter = $.filter('**/*.min.js');
 
-    var userRefPipe = lazypipe()
+    userRefPipe = lazypipe()
         .pipe(function () {
             return assets;
         })
@@ -46,7 +50,7 @@ module.exports = function (gulp, $, options) {
         })
         .pipe(styleFilter.restore)
 
-        .pipe(function() {
+        .pipe(function () {
             return jsFilter;
         })
         .pipe($.uglify, {preserveComments: 'some'})
@@ -61,11 +65,10 @@ module.exports = function (gulp, $, options) {
         .pipe($.useref, {
             //just replace src
             replace: function (blockContent, target, attbs) {
-                if(attbs) {
+                if (attbs) {
                     return '<script src="' + target + '" ' + attbs + '></script>';
-                } else {
-                    return '<script src="' + target + '"></script>';
                 }
+                return '<script src="' + target + '"></script>';
             }
         });
 
@@ -74,7 +77,7 @@ module.exports = function (gulp, $, options) {
 
 
         return gulp.src([viewPath + '/{,*/}' + options.viewmatch, '!' + viewPath + '/{,*/}_*.*'])
-            .pipe(map(function(code, filename) {
+            .pipe(map(function (code, filename) {
                 return ejs.render(code.toString(), _.clone(data), {filename: filename});
             }))
             .pipe($.if(options.production, userRefPipe()))

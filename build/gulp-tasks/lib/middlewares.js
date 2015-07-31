@@ -1,4 +1,4 @@
-module.exports = function  (options) {
+module.exports = function () {
 
     var db = require('./db');
 

@@ -110,7 +110,7 @@ gulp.task('dist', function () {
 });
 
 if (options.buildOnly) {
-    gulp.task('build', function(done) {
+    gulp.task('build', function (done) {
 
         var testHash = require('crypto').createHash('md5').update(fs.readFileSync(__filename, {encoding: 'utf8'})).digest('hex');
 
@@ -132,7 +132,7 @@ if (options.buildOnly) {
 
 } else {
 
-    gulp.task('deploy', function(done) {
+    gulp.task('deploy', function (done) {
         //force backup
         options.command = 'backup';
         runSequence('default', 'remote', 'rsync', done);

@@ -42,7 +42,7 @@ describe('MainController tests', () => {
 
         spyOn(ctrl, 'getCompleted').and.returnValue(5);
 
-        let percentage = ctrl.getPercentage();
+        const percentage = ctrl.getPercentage();
 
         expect(percentage).toBe(50);
         expect(ctrl.getTotal).toHaveBeenCalled();
@@ -54,7 +54,7 @@ describe('MainController tests', () => {
 
         spyOn(todoService, 'store');
 
-        let data = {
+        const data = {
             title: 'test'
         };
 
@@ -65,7 +65,7 @@ describe('MainController tests', () => {
         todoService.store.calls.reset();
 
         //call with callback
-        let cb = function () {};
+        function cb() {}
         ctrl.addTodo(data, cb);
         expect(todoService.store).toHaveBeenCalledWith(data, cb);
     });

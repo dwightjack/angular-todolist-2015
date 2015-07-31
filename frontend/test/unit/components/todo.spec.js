@@ -1,5 +1,5 @@
 describe('Todo item directive tests', () => {
-    let $scope, compiledElement, submitSpy, controller;
+    let $scope, compiledElement, controller;
 
     beforeEach(angular.mock.module(require('app/application').name));
 
@@ -19,7 +19,7 @@ describe('Todo item directive tests', () => {
 
         $scope.$digest();
 
-        controller = compiledElement.controller('myTodo')
+        controller = compiledElement.controller('myTodo');
 
     });
 
@@ -36,7 +36,7 @@ describe('Todo item directive tests', () => {
 
         it('should pass an update function to the controller instance', () => {
 
-            let data = {
+            const data = {
                 title: 'yeah'
             };
 
@@ -73,7 +73,7 @@ describe('Todo item directive tests', () => {
 
         it('should toggle `todo-completed` class and check checkbox when `todo.completed` changes', () => {
 
-            let checkbox = compiledElement[0].querySelector('#completed');
+            let checkbox = compiledElement[0].querySelector('input[name="completed"]');
 
             expect(compiledElement.hasClass('todo-completed')).toBe(false);
             expect(checkbox.checked).toBe(false);
@@ -90,7 +90,7 @@ describe('Todo item directive tests', () => {
 
             spyOn(controller, 'toggleCompleted');
 
-            let completed = compiledElement[0].querySelector('#completed');
+            let completed = compiledElement[0].querySelector('input[name="completed"]');
 
             completed.click();
 

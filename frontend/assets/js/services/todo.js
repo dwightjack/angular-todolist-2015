@@ -1,29 +1,32 @@
+var angular = require('angular');
+
 function todoService($resource) {
 
-    var _todos = [];
+    var _todos = [],
+        todoRes;
 
-    var todoRes = $resource('/api/todos/:id', {
+    todoRes = $resource('/api/todos/:id', {
         id: '@_id'
     }, {
         update: { method: 'PUT' }
     });
 
     return {
-        getAll: function () {
+        getAll: function getAll() {
             return _todos;
         },
 
-        load: function () {
-            todoRes.get(function (data) {
-                _todos.push.apply(_todos, data.payload);
+        load: function load() {
+            todoRes.get((data) => {
+                _todos.push(...data.payload);
             });
             return _todos;
         },
 
-        store: function (params, callback) {
+        store: function store(params, callback) {
             var cb = callback || angular.noop;
 
-            todoRes.save({}, params, function (data) {
+            todoRes.save({}, params, (data) => {
                 if (!data.error) {
                     _todos.push(data.payload);
                 }
@@ -31,13 +34,13 @@ function todoService($resource) {
             });
         },
 
-        reset: function () {
+        reset: function reset() {
             _todos.length = 0;
         },
 
-        get: function (id) {
+        get: function get(id) {
             var ret = null;
-            _todos.some(function (el) {
+            _todos.some((el) => {
                 if (el._id === id) {
                     ret = el;
                     return true;
@@ -47,39 +50,36 @@ function todoService($resource) {
             return ret;
         },
 
-        update: function (id, data) {
+        update: function update(id, data) {
             var todo = this.get(id);
 
-            todoRes.update({id: id}, data, function () {
+            todoRes.update({id: id}, data, () => {
                 angular.extend(todo, data || {});
             });
         },
 
-        remove: function (id) {
+        remove: function remove(id) {
             var idx = null;
 
-            _todos.some(function (el, i) {
+            _todos.some((el, i) => {
                 if (el._id === id) {
                     idx = i;
                     return true;
-                } else {
-                    return false;
                 }
+                return false;
             });
             if (angular.isNumber(idx)) {
-                todoRes.delete({id: id}, function () {
-                    _todos.splice(idx, 1);
-                });
+                todoRes.delete({id: id}, () => _todos.splice(idx, 1));
             }
         },
 
-        getCompleted: function () {
-            return _todos.filter(function (todo) {
-                return todo.completed === true;
-            }).length;
+        getCompleted: function getComplete() {
+            return _todos.filter(todo => todo.completed === true).length;
         }
     };
 
 }
+
+todoService.$inject = ['$resource'];
 
 module.exports = todoService;

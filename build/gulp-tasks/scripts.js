@@ -5,7 +5,9 @@
 
 module.exports = function (gulp, $, options) {
 
-    var webpack = require('webpack');
+    var _ = require('lodash'),
+        webpack = require('webpack');
+
     var webpackConfig = require('../gulp-config/webpack.conf')(options);
 
 
@@ -20,10 +22,23 @@ module.exports = function (gulp, $, options) {
         if (!options.production) {
             webpackConfig.devtool = '#eval-source-map';
             webpackConfig.debug = true;
+        } else {
+            if (options.production) {
+                webpackConfig.plugins.push(
+                    new webpack.optimize.DedupePlugin(),
+                    new webpack.optimize.UglifyJsPlugin({sourceMap: false}),
+                    new webpack.BannerPlugin(
+                        _.template(options.banners.application)(options),
+                        {entryOnly: true, raw: true}
+                    )
+                );
+            }
         }
 
         webpack(webpackConfig, function (err, stats) {
-            stats = stats || {};
+            if (err) {
+                done(err);
+            }
             if (callingDone) {
                 return;
             }
@@ -35,7 +50,7 @@ module.exports = function (gulp, $, options) {
                 }, 500);
             }
 
-            $.util.log(stats.toString({
+            $.util.log((stats || {}).toString({
                 colors: $.util.colors.supportsColor,
                 hash: false,
                 timings: false,

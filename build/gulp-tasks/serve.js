@@ -4,9 +4,10 @@
  */
 
 
-var browserSync = require('browser-sync');
-
 module.exports = function (gulp, $, options) {
+
+    var spawn = require('child_process').spawn,
+        browserSync = require('browser-sync');
 
     var paths = options.paths,
         assetsPath = options.assetsPath,
@@ -58,8 +59,12 @@ module.exports = function (gulp, $, options) {
 
         browserSync.init(null, browserSyncConfig, function () {
 
+            var compileTask,
+                notifier,
+                backgroundProcess;
+
             gulp.watch([
-                assetsPath('src.sass', '/**/*.{scss,sass}') ,
+                assetsPath('src.sass', '/**/*.{scss,sass}'),
                 '!' + assetsPath('src.sass', '**/*scsslint_tmp*.{sass,scss}') //exclude scss lint files
             ], ['styles']);
             gulp.watch([assetsPath('src.images', '**/*.{png,jpg,gif,svg,webp}')], ['images', reload]);
@@ -74,8 +79,8 @@ module.exports = function (gulp, $, options) {
             );
 
             //webpack watch
-            var compileTask = require('./scripts')(gulp, $, options);
-            var notifier = $.notify({message: 'Scripts Compiled'});
+            compileTask = require('./scripts')(gulp, $, options);
+            notifier = $.notify({message: 'Scripts Compiled'});
 
 
             compileTask(function () {
@@ -84,22 +89,19 @@ module.exports = function (gulp, $, options) {
             });
 
             if (options.bdd) {
-                var spawn = require('child_process').spawn;
-                var backgroundProcess = spawn('node', ['./node_modules/gulp/bin/gulp.js', 'test:unit:bdd'], { stdio: 'inherit', cwd: process.cwd(), env: process.env });
+
+                backgroundProcess = spawn('node', ['./node_modules/gulp/bin/gulp.js', 'test:unit:bdd'], { stdio: 'inherit', cwd: process.cwd(), env: process.env });
 
                 process.on('exit', function () {
                     backgroundProcess.kill();
                 });
 
                 backgroundProcess.on('error', function (e) {
-                    console.log(e);
+                    new $.util.PluginError('[serve]', e);
                 });
             }
 
         });
-
-
-
 
     });
 
@@ -117,6 +119,6 @@ module.exports = function (gulp, $, options) {
             },
             ui: false
         }, done);
-    })
+    });
 };
 

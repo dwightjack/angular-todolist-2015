@@ -264,12 +264,19 @@ body {
     }
 }
 
-.progress-bar[aria-valuenow="0"] {
-    color: $color-text;
+.progress-bar {
+
+    span {
+        transition: color 0.3s ease;
+    }
+
+    &[aria-valuenow="0"] {
+        color: $color-text;
+    }
 }
 
 .glyphicon-refresh-animate {
-    animation: spin .7s infinite linear;
+    animation: spin 0.7s infinite linear;
 }
 
 @keyframes spin2 {

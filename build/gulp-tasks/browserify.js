@@ -13,10 +13,10 @@ module.exports = function (gulp, $, options) {
     var buffer = require('vinyl-buffer');
     var glob = require('glob');
     var es = require('event-stream');
-    var babelify = require("babelify");
+    var babelify = require('babelify');
 
 
-    function bundler (entry, bundle) {
+    function bundler(entry, bundle) {
 
         return bundle
             .bundle()
@@ -32,12 +32,14 @@ module.exports = function (gulp, $, options) {
     gulp.task('browserify', function (done) {
         glob('*.js', {
             cwd: path.join(process.cwd(), options.assetsPath('src.js'))
-        }, function(err, files) {
-            if(err) {
+        }, function (err, files) {
+            var tasks;
+
+            if (err) {
                 done(err);
             }
 
-            var tasks = files.map(function (entry) {
+            tasks = files.map(function (entry) {
                 var opts = _.assign({ entries: [options.assetsPath('src.js', entry)], debug: false }, watchify.args);
                 var b = browserify(opts);
                 var bundle = options.isWatching ? watchify(b) : b;
@@ -49,7 +51,6 @@ module.exports = function (gulp, $, options) {
                         return bundler(entry, bundle);
                     });
                 }
-
                 return bundler(entry, bundle);
             });
 

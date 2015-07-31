@@ -66,9 +66,8 @@ module.exports = function (gulp, $, options) {
         if (!target || targets.indexOf(target) === -1) {
             $.util.log($.util.colors.red('Deploy target unavailable. Specifiy it via `--remotehost` argument. Allowed targets are: ' + targets.join(', ')));
             return false;
-        } else {
-            return hosts[target];
         }
+        return hosts[target];
     }
 
 
@@ -89,19 +88,19 @@ module.exports = function (gulp, $, options) {
             return false;
         }
 
-        conn.on('ready', function() {
-            conn.exec('cd ' + host.path + ';' + sshCommands[options.command], function(err, stream) {
+        conn.on('ready', function () {
+            conn.exec('cd ' + host.path + ';' + sshCommands[options.command], function (err, stream) {
                 if (err) {
                     return done(err);
                 }
 
-                stream.on('close', function(code) {
+                stream.on('close', function (code) {
                     $.util.log('REMOTE: close code: ' + code);
                     done();
                     return conn.end();
-                }).on('data', function(data) {
+                }).on('data', function (data) {
                     $.util.log('REMOTE: ' + data);
-                }).stderr.on('data', function(data) {
+                }).stderr.on('data', function (data) {
                     $.util.log($.util.colors.red('REMOTE: ' + data));
                 });
             });

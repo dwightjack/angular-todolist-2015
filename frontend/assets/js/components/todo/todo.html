@@ -6,12 +6,12 @@
         <div class="col-xs-12 col-sm-1">
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" value="" name="completed" id="completed" ng-checked="vm.todo.completed" ng-click="vm.toggleCompleted()" />
+                    <input type="checkbox" value="{{::vm.todo._id}}" name="completed" id="completed-{{::vm.todo._id}}" ng-checked="vm.todo.completed" ng-click="vm.toggleCompleted()" />
                 </label>
             </div>
         </div>
         <div class="col-xs-12 col-sm-11 todo-item">
-            <h1 class="list-group-item-heading h4" ng-click="vm.toggleCompleted()">{{vm.todo.title}}</h1>
+            <h1 class="list-group-item-heading h4" ng-click="vm.toggleCompleted()">{{::vm.todo.title}}</h1>
         </div>
     </div>
 </article>

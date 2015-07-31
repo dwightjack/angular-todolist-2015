@@ -5,6 +5,8 @@
 
 	"browser": true,
 
+    "esnext": true,
+
 	//Enforcing options
 	"curly": true, // Require {} for every new block or scope.
 	"eqeqeq": true,

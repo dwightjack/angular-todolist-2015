@@ -12,5 +12,6 @@ module.exports = function myTodo() {
             onUpdate: '&',
             onRemove: '&'
         }
-    }
+    };
+
 };

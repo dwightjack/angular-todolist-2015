@@ -1,5 +1,5 @@
 describe('Form directive tests', () => {
-    let $scope, compiledElement, submitSpy;
+    let $scope, compiledElement;
 
     beforeEach(angular.mock.module(require('app/application').name));
 
@@ -7,7 +7,7 @@ describe('Form directive tests', () => {
 
         angular.mock.inject(($rootScope, $compile) => {
             $scope = $rootScope.$new();
-            $scope.submitSpy = function (data, cb=angular.noop) {
+            $scope.submitSpy = function submitSpy(data, cb=angular.noop) {
                 cb();
             };
             spyOn($scope, 'submitSpy').and.callThrough();
@@ -72,11 +72,6 @@ describe('Form directive tests', () => {
 
         let controller = compiledElement.controller('myForm');
 
-        //force todo data population
-        let todo = {
-            title: 'test'
-        };
-
         controller.todo = {
             title: 'test'
         };
@@ -85,7 +80,7 @@ describe('Form directive tests', () => {
         controller.isSubmitting = false;
         controller.submit();
 
-        expect($scope.submitSpy).toHaveBeenCalledWith(todo, jasmine.any(Function));
+        expect($scope.submitSpy).toHaveBeenCalledWith({title: 'test'}, jasmine.any(Function));
         expect(controller.todo.title).toBe('');
 
     });

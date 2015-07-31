@@ -6,11 +6,13 @@
  *
  */
 
-require('./base/plugins');
-
 var angular = require('angular');
 
-var todoListApp = angular.module('todoListApp', [require('angular-resource'), require('angular-animate')])
+require('./base/plugins');
+
+let todoListApp;
+
+todoListApp = angular.module('todoListApp', [require('angular-resource'), require('angular-animate')])
     .factory('todoService', require('./services/todo'))
     .controller('ListController', require('./layout/list.controller'))
     .controller('MainController', require('./layout/main.controller'))

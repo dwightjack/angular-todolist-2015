@@ -6,8 +6,9 @@
 module.exports = function (gulp, $, options) {
 
     var path = require('path'),
-        del = require('del'),
-        paths = options.paths,
+        del = require('del');
+
+    var paths = options.paths,
         assetsPath = options.assetsPath,
         folders;
 
@@ -20,7 +21,7 @@ module.exports = function (gulp, $, options) {
         assetsPath('dist.js'),
         assetsPath('dist.css'),
         assetsPath('dist.fonts'),
-        paths.dist.views + '/' +  options.viewmatch,
+        paths.dist.views + '/' + options.viewmatch,
         paths.dist.views + '/{partials,templates,components}',
         assetsPath('dist.vendors'),
         path.join(paths.dist.root, 'styleguide'),

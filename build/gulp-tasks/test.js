@@ -1,3 +1,8 @@
+/**
+ * Testing Related Task
+ * ===============================
+ */
+
 module.exports = function (gulp, $, options) {
 
     var path = require('path'),
@@ -60,14 +65,14 @@ module.exports = function (gulp, $, options) {
             configFile: path.join(__dirname, '../gulp-config', 'protractor.conf.js'),
             args: ['--baseUrl', 'http://127.0.0.1:' + options.hosts.devbox.ports.connect, '--seleniumServerJar', seleniumServerJar[0]]
         }))
-        .on('error', function(e) { throw e })
+        .on('error', function (e) { throw e; })
         .on('end', function () {
-                browserSync.exit();
-                done()
+            browserSync.exit();
+            done();
         });
     });
 
-    gulp.task('test', ['default'], function(done) {
+    gulp.task('test', ['default'], function (done) {
         runSequence('test:unit', 'test:e2e', done);
     });
 
