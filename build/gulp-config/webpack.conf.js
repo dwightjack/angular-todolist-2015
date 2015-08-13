@@ -1,9 +1,9 @@
 module.exports = function (options) {
 
     var path = require('path'),
-        glob = require('glob'),
-        cwd = path.join(process.cwd(), options.assetsPath('src.js')),
-        srcPath = path.join(process.cwd(), options.assetsPath('src.js')),
+        glob = require('glob');
+
+    var cwd = path.join(process.cwd(), options.assetsPath('src.js')),
         destPath = path.join(options.assetsPath('dist.js'));
 
     var entries = {};

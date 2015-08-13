@@ -20,19 +20,23 @@ module.exports = function (gulp, $, options) {
         }
 
         if (!options.production) {
-            webpackConfig.devtool = '#eval-source-map';
+            webpackConfig.devtool = '#source-map';
             webpackConfig.debug = true;
         } else {
-            if (options.production) {
-                webpackConfig.plugins.push(
-                    new webpack.optimize.DedupePlugin(),
-                    new webpack.optimize.UglifyJsPlugin({sourceMap: false}),
-                    new webpack.BannerPlugin(
-                        _.template(options.banners.application)(options),
-                        {entryOnly: true, raw: true}
-                    )
-                );
-            }
+            webpackConfig.plugins.push(
+                new webpack.optimize.DedupePlugin(),
+                new webpack.optimize.UglifyJsPlugin({
+                    sourceMap: false,
+                    compressor: {
+                        screw_ie8: true,
+                        warnings: false
+                    }
+                }),
+                new webpack.BannerPlugin(
+                    _.template(options.banners.application)(options),
+                    {entryOnly: true, raw: true}
+                )
+            );
         }
 
         webpack(webpackConfig, function (err, stats) {

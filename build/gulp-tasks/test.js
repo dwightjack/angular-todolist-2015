@@ -72,6 +72,9 @@ module.exports = function (gulp, $, options) {
         });
     });
 
+
+
+
     gulp.task('test', ['default'], function (done) {
         runSequence('test:unit', 'test:e2e', done);
     });

@@ -1,6 +1,4 @@
-module.exports = function(config) {
-
-    var path = require('path');
+module.exports = function (config) {
 
     config.set({
         browsers: ['Chrome'],
@@ -23,16 +21,13 @@ module.exports = function(config) {
         preprocessors: {
             'frontend/test/unit/**/*.spec.js': ['webpack']
         },
-        //
-        //captureTimeout: 60000,
-        //browserNoActivityTimeout: 60000,
 
         plugins: [
             'karma-webpack',
             'karma-phantomjs-launcher',
             'karma-chrome-launcher',
             'karma-jasmine',
-            'karma-spec-reporter'
+            'karma-coverage'
         ]
     });
 };

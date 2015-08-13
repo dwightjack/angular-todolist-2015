@@ -5,7 +5,7 @@ module.exports = function myTodo() {
         template: require('./form.html'),
         replace: true,
         controllerAs: 'vm',
-        controller: require('./form.controller.js'),
+        controller: require('./form.controller'),
         bindToController: true,
         scope: {
             onSubmit: '&'

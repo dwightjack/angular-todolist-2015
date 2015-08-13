@@ -105,6 +105,19 @@ module.exports = function (gulp, $, options) {
 
     });
 
+    gulp.task('server:tunnel', ['server'], function (done) {
+        var ngrok = require('ngrok');
+        ngrok.connect(ports.connect, function (err, url) {
+            if (err) {
+                done(err);
+            } else {
+                options.hosts.devbox._tunnel = url;
+                $.util.log($.util.colors.blue('Tunnel URL set to ' + url));
+                done();
+            }
+        });
+    });
+
     //just a static server
     gulp.task('server', function (done) {
 

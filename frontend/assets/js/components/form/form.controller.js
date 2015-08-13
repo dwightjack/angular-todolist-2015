@@ -1,4 +1,4 @@
-var angular = require('angular');
+var copy = require('angular').copy;
 
 class FormController {
 
@@ -13,7 +13,7 @@ class FormController {
         this.isSubmitting = true;
 
         this.onSubmit({
-            data: angular.copy(this.todo),
+            data: copy(this.todo),
             cb: () => {
                 this.isSubmitting = false;
                 this.todo.title = '';

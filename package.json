@@ -1,31 +1,22 @@
 {
-  "name": "wok",
-  "description": "A Static Website Boilerplate",
-  "version": "1.0.0-beta",
+  "name": "angular-todolist-2015",
+  "description": "An Angularjs todo list",
+  "version": "1.0.0",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/fevrcoding/wok.git"
+    "url": "git://github.com/dwightjack/angular-todolist-2015.git"
   },
   "author": {
     "name": "Marco Solazzi",
     "url": "https://github.com/dwightjack"
   },
-  "contributors": [
-    {
-      "name": "Matteo Guidotto",
-      "url": "https://github.com/mguidotto"
-    },
-    {
-      "name": "Umberto Quintarelli",
-      "url": "https://github.com/quincia"
-    }
-  ],
-  "main": "Gruntfile.js",
+  "main": "gulpfile.js",
   "engines": {
     "node": "~0.10.30"
   },
   "dependencies": {
+    "angular": "^1.4.3",
     "angular-animate": "^1.4.3",
     "angular-resource": "^1.4.3",
     "gsap": "^1.17.0"
@@ -86,10 +77,12 @@
     "mkdirp": "^0.5.1",
     "moment": "^2.10.3",
     "nedb": "^1.1.2",
+    "ngrok": "^0.1.99",
     "phantomjs": "^1.9.17",
     "postcss-color-rgba-fallback": "^1.2.0",
     "postcss-pseudoelements": "^2.2.0",
     "protractor": "^2.1.0",
+    "psi": "^1.0.6",
     "raw-loader": "^0.5.1",
     "rsyncwrapper": "^0.4.3",
     "run-sequence": "^1.1.1",
@@ -101,8 +94,6 @@
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.3.0",
     "webpack": "^1.10.5",
-    "webpack-dev-middleware": "^1.2.0",
-    "webpack-stream": "^2.0.0",
     "yargs": "^3.11.0"
   }
 }

@@ -1,7 +1,9 @@
-module.exports = function () {
+module.exports = function (options) {
 
-    var db = require('./db');
+    var ret = [];
 
-    return [db];
+    ret.push(require('./db'));
+
+    return ret;
 
 };
