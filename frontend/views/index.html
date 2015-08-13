@@ -40,27 +40,74 @@
 <!--[if IE 9]> <body class="lt-ie10"> <![endif]-->
 <!--[if gt IE 9]><!--> <body> <!--<![endif]-->
 
-    <div class="container" ng-cloak="" ng-app="todoListApp">
+    <div class="container">
 
-        <section class="panel panel-default" id="todolist" ng-controller="MainController as main">
+        <section class="panel panel-default" id="todolist">
             <header class="panel-heading">
                 <strong class="h2">Todo List</strong>
             </header>
 
             <div class="panel-body">
-                <div my-form on-submit="main.addTodo(data, cb)"></div>
+                <form name="" class="row" novalidate="novalidate">
+
+                    <fieldset class="col-xs-offset-1 col-xs-11">
+
+                        <div class="form-group">
+                            <label for="title" class="sr-only">Titolo</label>
+                            <input type="text" class="form-control" autocomplete="off" id="title" name="title" placeholder="Titolo nuovo task (obbligatorio)" required="required" />
+                        </div>
+
+                        <button class="btn btn-primary" type="submit"><small class="glyphicon glyphicon-floppy-disk"></small> Salva</button>
+                    </fieldset>
+
+                </form>
             </div>
 
-            <div class="list-group" id="todolist-items" ng-controller="ListController as list">
+            <div class="list-group" id="todolist-items">
                 <form name="todoListForm">
-                    <article ng-repeat="todo in list.todos track by todo._id" my-todo my-todo-item="todo" on-update="list.update(id, data)" on-remove="list.remove(id)"></article>
+                    <article class="list-group-item todo-item">
+                        <div class="action-bar">
+                            <a href="" class="glyphicon glyphicon-trash" title="Cancella"><span class="sr-only">Cancella</span></a>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-1">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="1" name="completed" id="completed-1" />
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-11 todo-item">
+                                <h1 class="list-group-item-heading h4">Titolo todo</h1>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="list-group-item todo-item todo-completed">
+                        <div class="action-bar">
+                            <a href="" class="glyphicon glyphicon-trash" title="Cancella"><span class="sr-only">Cancella</span></a>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-1">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="2" name="completed" id="completed-2" checked="checked" />
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-11 todo-item">
+                                <h1 class="list-group-item-heading h4">Titolo secondo todo</h1>
+                            </div>
+                        </div>
+                    </article>
                 </form>
             </div> <!-- /#todolist-items -->
 
 
             <footer class="panel-footer">
-                <p class="small">Totali: <strong>{{main.getTotal()}}</strong> Completati: <strong>{{main.getCompleted()}}</strong></p>
-                <div my-progress my-progress-perc="main.getPercentage()">{{main.getPercentage() | number:2}}%</div>
+                <p class="small">Totali: <strong>2</strong> Completati: <strong>1</strong></p>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuenow="50" aria-valuemax="100" style="width: 50%">50.00%</div>
+                </div>
             </footer>
 
         </section> <!-- /#todolist -->
