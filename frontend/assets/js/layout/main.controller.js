@@ -1,17 +1,20 @@
-var noop = require('angular').noop;
-
 class MainController {
-    constructor(todoService) {
-        this.todoService = todoService;
-        todoService.load();
+    constructor(todoService, appStore, todoActionCreator) {
+        this.todos = appStore.getState().todos;
+        this.appStore = todoService;
+        this.todoActionCreator = todoActionCreator;
+        this.appStore = appStore;
+        appStore.dispatch(todoActionCreator.fetchTodos()).then(() => {
+            this.todos = appStore.getState().todos;
+        });
     }
 
     getTotal() {
-        return this.todoService.getAll().length;
+        return this.todos.length;
     }
 
     getCompleted() {
-        return this.todoService.getCompleted();
+        return this.appStore.getCompleted();
     }
 
     getPercentage() {
@@ -22,13 +25,15 @@ class MainController {
         return this.getCompleted() * 100 / total;
     }
 
-    addTodo(data, cb=noop) {
-        this.todoService.store(data, cb);
+    addTodo(data) {
+        this.appStore.dispatch(this.todoActionCreator.storeTodo(data)).then(() => {
+            this.todos = this.appStore.getState().todos;
+        });
     }
 
 }
 
-MainController.$inject = ['todoService'];
+MainController.$inject = ['todoService', 'appStore', 'todoActionCreator'];
 
 
-module.exports = MainController;
+export default MainController;

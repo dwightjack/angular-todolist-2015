@@ -152,7 +152,11 @@
         "no-trailing-spaces": 2,         // http://eslint.org/docs/rules/no-trailing-spaces
         "no-extra-parens": [2, "functions"], // http://eslint.org/docs/rules/no-extra-parens
         "no-underscore-dangle": 0,       // http://eslint.org/docs/rules/no-underscore-dangle
-        "one-var": [2, "always"],         // http://eslint.org/docs/rules/one-var
+        "one-var": [2, {
+            "var": "always", // Exactly one var declaration per function
+            "let": "always", // Exactly one let declaration per block
+            "const": "never" // Exactly one declarator per const declaration per block
+        }],         // http://eslint.org/docs/rules/one-var
         "padded-blocks": 0,   // http://eslint.org/docs/rules/padded-blocks
         "semi": [2, "always"],           // http://eslint.org/docs/rules/semi
         "semi-spacing": [2, {            // http://eslint.org/docs/rules/semi-spacing

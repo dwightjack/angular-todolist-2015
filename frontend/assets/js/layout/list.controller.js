@@ -1,19 +1,19 @@
 class ListController {
 
-    constructor(todoService) {
-        this.todoService = todoService;
-        this.todos = todoService.getAll();
+    constructor(appStore, todoActionCreator) {
+        this.appStore = appStore;
+        this.todoActionCreator = todoActionCreator;
     }
 
     update(id, data) {
-        this.todoService.update(id, data);
+        this.appStore.dispatch(todoActionCreator.updateTodo(id, data));
     }
 
     remove(id) {
-        this.todoService.remove(id);
+        this.appStore.dispatch(todoActionCreator.removeTodo(id));
     }
 }
 
-ListController.$inject = ['todoService'];
+ListController.$inject = ['appStore', 'todoActionCreator'];
 
-module.exports = ListController;
+export default ListController;

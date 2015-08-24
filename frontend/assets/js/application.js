@@ -6,19 +6,36 @@
  *
  */
 
-var angular = require('angular');
+import angular from 'angular';
+import ngResource from 'angular-resource';
+import ngAnimate from 'angular-animate';
 
-require('./base/plugins');
+import './base/plugins';
+
+import appStore from './services/store';
+import todoApiService from './services/todo-api';
+import todoActionCreator from './services/todo-actions';
+
+import ListController from './layout/list.controller';
+import MainController from './layout/main.controller';
+
+import myProgressDirective from './components/progress/progress.directive';
+import myTodoDirective from './components/todo/todo.directive';
+import myFormDirective from './components/form/form.directive';
+
+import todoItemAnimation from './components/todo/todo.animation';
 
 let todoListApp;
 
-todoListApp = angular.module('todoListApp', [require('angular-resource'), require('angular-animate')])
-    .factory('todoService', require('./services/todo'))
-    .controller('ListController', require('./layout/list.controller'))
-    .controller('MainController', require('./layout/main.controller'))
-    .directive('myProgress', require('./components/progress/progress.directive'))
-    .directive('myTodo', require('./components/todo/todo.directive'))
-    .directive('myForm', require('./components/form/form.directive'))
-    .animation('.todo-item', require('./components/todo/todo.animation'));
+todoListApp = angular.module('todoListApp', [ngResource, ngAnimate])
+    .factory('todoApiService', todoApiService)
+    .factory('appStore', appStore)
+    .factory('todoActionCreator', todoActionCreator)
+    .controller('ListController', ListController)
+    .controller('MainController', MainController)
+    .directive('myProgress', myProgressDirective)
+    .directive('myTodo', myTodoDirective)
+    .directive('myForm', myFormDirective)
+    .animation('.todo-item', todoItemAnimation);
 
-module.exports = todoListApp;
+export default todoListApp;

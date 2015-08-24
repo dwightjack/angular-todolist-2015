@@ -12,7 +12,7 @@ module.exports = function (options) {
         cwd: cwd
     }).forEach(function (filename) {
         var key = path.basename(filename, '.js');
-        entries[key] = './' + filename;
+        entries[key] = ['babel-core/polyfill', './' + filename];
     });
 
 
@@ -33,8 +33,22 @@ module.exports = function (options) {
                     exclude: /(node_modules|assets\/vendors)/,
                     loader: 'babel-loader',
                     query: {
-                        optional: ['runtime', 'strict'],
-                        loose: 'all'
+                        optional: ['strict'],
+                        loose: [
+                            'es6.arrowFunctions',
+                            'es6.blockScoping',
+                            'es6.classes',
+                            'es6.constants',
+                            'es6.forOf',
+                            'es6.modules',
+                            'es6.parameters',
+                            'es6.properties.computed',
+                            'es6.properties.shorthand',
+                            'es6.tailCall',
+                            'es6.templateLiterals',
+                            'es6.regex.unicode',
+                            'es6.regex.sticky'
+                        ]
                     }
                 }, {
                     test: /\.html$/,

@@ -61,7 +61,7 @@ var FormController = (function () {
     function FormController(todoService) {
         _classCallCheck(this, FormController);
 
-        this.todoService = todoService;
+        this.appStore = todoService;
         this.isSubmitting = false;
     }
 
@@ -70,7 +70,7 @@ var FormController = (function () {
 
         if (this.todoForm.$invalid !== true) {
             this.isSubmitting = true;
-            this.todoService.store(this.todo, function () {
+            this.appStore.store(this.todo, function () {
                 _this.isSubmitting = false;
             });
         }
@@ -90,7 +90,7 @@ var ListController = (function () {
     function ListController(todoService) {
         _classCallCheck(this, ListController);
 
-        this.todoService = todoService;
+        this.appStore = todoService;
         this.todos = todoService.getAll();
 
         if (this.todos.length === 0) {
@@ -99,11 +99,11 @@ var ListController = (function () {
     }
 
     ListController.prototype.toggleCompleted = function toggleCompleted(todo) {
-        this.todoService.update(todo._id, { completed: !todo.completed });
+        this.appStore.update(todo._id, { completed: !todo.completed });
     };
 
     ListController.prototype.remove = function remove(todo) {
-        this.todoService.remove(todo._id);
+        this.appStore.remove(todo._id);
     };
 
     return ListController;
@@ -120,19 +120,19 @@ var MainController = (function () {
     function MainController(todoService) {
         _classCallCheck(this, MainController);
 
-        this.todoService = todoService;
+        this.appStore = todoService;
     }
 
     MainController.prototype.getTotal = function getTotal() {
-        return this.todoService.getAll().length;
+        return this.appStore.getAll().length;
     };
 
     MainController.prototype.getCompleted = function getCompleted() {
-        return this.todoService.getCompleted();
+        return this.appStore.getCompleted();
     };
 
     MainController.prototype.getPercentage = function getPercentage() {
-        var total = this.todoService.getAll().length;
+        var total = this.appStore.getAll().length;
         if (total === 0) {
             return 0;
         } else {

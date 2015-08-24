@@ -2,24 +2,28 @@ var copy = require('angular').copy;
 
 class FormController {
 
-    constructor() {
-        this.isSubmitting = false;
+    constructor(storeService) {
+        this.appStore = storeService;
+    }
+
+    isSubmitting() {
+        return this.appStore.getState().isSubmitting;
     }
 
     submit() {
-        if (this.isSubmitting || this.todoForm.$invalid) {
+        if (this.isSubmitting() || this.todoForm.$invalid) {
             return false;
         }
-        this.isSubmitting = true;
 
         this.onSubmit({
             data: copy(this.todo),
             cb: () => {
-                this.isSubmitting = false;
                 this.todo.title = '';
             }
         });
     }
 }
+
+FormController.$inject = ['storeService'];
 
 module.exports = FormController;
