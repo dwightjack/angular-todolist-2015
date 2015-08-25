@@ -1,11 +1,14 @@
-module.exports = function myTodo() {
+import TodoController from './todo.controller';
+import todoTemplate from './todo.html';
+
+function myTodo() {
 
     return {
-        restrict: 'AC',
-        template: require('./todo.html'),
+        restrict: 'EA',
+        template: todoTemplate,
         replace: true,
         controllerAs: 'vm',
-        controller: require('./todo.controller'),
+        controller: TodoController,
         bindToController: true,
         scope: {
             todo: '=myTodoItem',
@@ -14,4 +17,6 @@ module.exports = function myTodo() {
         }
     };
 
-};
+}
+
+export default  myTodo;

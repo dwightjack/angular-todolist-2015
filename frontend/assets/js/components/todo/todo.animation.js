@@ -1,20 +1,19 @@
 /* global TweenMax */
 
-require('gsap');
+import 'gsap';
 
-module.exports = function todoAnimation() {
+function todoAnimation() {
 
     return {
-        enter: function enter(element, doneFn) {
+        enter(element, doneFn) {
             TweenMax.from(element, 0.3, {
                 height: 0,
                 x: -10,
-                autoAlpha: 0,
                 onComplete: doneFn
             });
         },
 
-        leave: function leave(element, doneFn) {
+        leave(element, doneFn) {
             TweenMax.to(element, 0.3, {
                 height: 0,
                 x: -10,
@@ -24,4 +23,7 @@ module.exports = function todoAnimation() {
         }
     };
 
-};
+}
+
+
+export default todoAnimation;

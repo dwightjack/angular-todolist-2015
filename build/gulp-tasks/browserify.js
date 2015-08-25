@@ -40,11 +40,25 @@ module.exports = function (gulp, $, options) {
             }
 
             tasks = files.map(function (entry) {
-                var opts = _.assign({ entries: [options.assetsPath('src.js', entry)], debug: false }, watchify.args);
+                var opts = _.assign({ entries: ['babel-core/polyfill', options.assetsPath('src.js', entry)], debug: false }, watchify.args);
                 var b = browserify(opts);
                 var bundle = options.isWatching ? watchify(b) : b;
                 bundle.transform(babelify.configure({
-                    loose: 'all'
+                    loose: [
+                        'es6.arrowFunctions',
+                        'es6.blockScoping',
+                        'es6.classes',
+                        'es6.constants',
+                        'es6.forOf',
+                        'es6.modules',
+                        'es6.parameters',
+                        'es6.properties.computed',
+                        'es6.properties.shorthand',
+                        'es6.tailCall',
+                        'es6.templateLiterals',
+                        'es6.regex.unicode',
+                        'es6.regex.sticky'
+                    ]
                 }));
                 if (options.isWatching) {
                     bundle.on('update', function () {

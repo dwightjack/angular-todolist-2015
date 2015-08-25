@@ -6,11 +6,11 @@ class ListController {
     }
 
     update(id, data) {
-        this.appStore.dispatch(todoActionCreator.updateTodo(id, data));
+        this.appStore.dispatch(this.todoActionCreator.updateTodo(id, data));
     }
 
     remove(id) {
-        this.appStore.dispatch(todoActionCreator.removeTodo(id));
+        this.appStore.dispatch(this.todoActionCreator.removeTodo(id));
     }
 }
 

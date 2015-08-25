@@ -1,15 +1,20 @@
-module.exports = function myTodo() {
+import formTemplate from './form.html';
+import FormController from './form.controller';
+
+function myForm() {
 
     return {
         restrict: 'AE',
-        template: require('./form.html'),
+        template: formTemplate,
         replace: true,
         controllerAs: 'vm',
-        controller: require('./form.controller'),
+        controller: FormController,
         bindToController: true,
         scope: {
             onSubmit: '&'
         }
     };
 
-};
+}
+
+export default myForm;

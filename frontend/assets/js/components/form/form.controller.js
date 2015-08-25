@@ -1,9 +1,8 @@
-var copy = require('angular').copy;
 
 class FormController {
 
-    constructor(storeService) {
-        this.appStore = storeService;
+    constructor(appStore) {
+        this.appStore = appStore;
     }
 
     isSubmitting() {
@@ -16,7 +15,7 @@ class FormController {
         }
 
         this.onSubmit({
-            data: copy(this.todo),
+            data: Object.assign({}, this.todo),
             cb: () => {
                 this.todo.title = '';
             }
@@ -24,6 +23,6 @@ class FormController {
     }
 }
 
-FormController.$inject = ['storeService'];
+FormController.$inject = ['appStore'];
 
-module.exports = FormController;
+export default FormController;

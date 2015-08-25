@@ -1,9 +1,11 @@
-module.exports = function myProgress() {
+import progressTemplate from './progress.html';
+
+function myProgress() {
 
     return {
-        restrict: 'AC',
+        restrict: 'EA',
         replace: true,
-        template: require('./progress.html'),
+        template: progressTemplate,
         transclude: true,
         scope: {
             perc: '=myProgressPerc'
@@ -25,4 +27,8 @@ module.exports = function myProgress() {
         //}
 
     };
-};
+
+}
+
+
+export default myProgress;

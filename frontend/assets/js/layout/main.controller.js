@@ -1,12 +1,15 @@
 class MainController {
-    constructor(todoService, appStore, todoActionCreator) {
+    constructor(todoApiService, appStore, todoActionCreator) {
         this.todos = appStore.getState().todos;
-        this.appStore = todoService;
+        this.todoApiService = todoApiService;
+        this.appStore = appStore;
         this.todoActionCreator = todoActionCreator;
         this.appStore = appStore;
-        appStore.dispatch(todoActionCreator.fetchTodos()).then(() => {
-            this.todos = appStore.getState().todos;
-        });
+
+        appStore.listen((state) => state.todos.length, () => this.todos = appStore.getState().todos);
+
+        appStore.dispatch(todoActionCreator.fetchTodos());
+
     }
 
     getTotal() {
@@ -14,7 +17,7 @@ class MainController {
     }
 
     getCompleted() {
-        return this.appStore.getCompleted();
+        return this.todoApiService.getCompleted(this.todos);
     }
 
     getPercentage() {
@@ -25,15 +28,13 @@ class MainController {
         return this.getCompleted() * 100 / total;
     }
 
-    addTodo(data) {
-        this.appStore.dispatch(this.todoActionCreator.storeTodo(data)).then(() => {
-            this.todos = this.appStore.getState().todos;
-        });
+    addTodo(data, cb) {
+        this.appStore.dispatch(this.todoActionCreator.storeTodo(data)).then(cb);
     }
 
 }
 
-MainController.$inject = ['todoService', 'appStore', 'todoActionCreator'];
+MainController.$inject = ['todoApiService', 'appStore', 'todoActionCreator'];
 
 
 export default MainController;

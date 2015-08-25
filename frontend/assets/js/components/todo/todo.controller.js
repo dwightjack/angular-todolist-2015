@@ -9,4 +9,4 @@ class TodoController {
     }
 }
 
-module.exports = TodoController;
+export default TodoController;

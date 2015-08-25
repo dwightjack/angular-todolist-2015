@@ -7,7 +7,7 @@
             <input type="text" class="form-control" autocomplete="off" id="title" name="title" ng-model="vm.todo.title" placeholder="Titolo nuovo task (obbligatorio)" required="required" />
         </div>
 
-        <button class="btn btn-primary" type="submit" ng-disabled="vm.todoForm.$invalid || vm.isSubmitting"><small class="glyphicon glyphicon-floppy-disk"></small> Salva</button>
+        <button class="btn btn-primary" type="submit" ng-disabled="vm.todoForm.$invalid || vm.isSubmitting()"><small class="glyphicon glyphicon-floppy-disk"></small> Salva</button>
     </fieldset>
 
 </form>
